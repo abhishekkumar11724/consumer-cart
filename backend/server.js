@@ -1,6 +1,8 @@
-import app from "./app";
+// import app from "app";
+const app = require('./app');
 
-import 'dotenv';
+// import 'dotenv';
+const dotenv = require("dotenv");
 
 //config 
 dotenv.config({path:"backend/config/config.env"});
