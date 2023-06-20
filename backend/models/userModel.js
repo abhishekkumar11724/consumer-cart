@@ -45,7 +45,7 @@ userSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
     next();
   }
-  this.password = bcrypt.hashSync(this.password, 10);
+  this.password = await bcrypt.hash(this.password, 10).toString("hex");
 });
 
 // JWT TOKEN
@@ -65,7 +65,7 @@ userSchema.methods.getResetPasswordToken = function () {
   // Generate Token
   const resetToken = crypto.randomBytes(20).toString("hex");
 
-  // Hashing and add to userSchema
+  // Hashing and add  to userSchema
   this.resetPasswordToken = crypto
     .createHash("sha256")
     .update(resetToken)
@@ -75,5 +75,21 @@ userSchema.methods.getResetPasswordToken = function () {
 
   return resetToken;
 };
+
+// // Generating Password Reset Token
+// userSchema.methods.getResetPasswordToken = function () {
+//   // Generating Token
+//   const resetToken = crypto.randomBytes(20).toString("hex");
+
+//   // Hashing and adding resetPasswordToken to userSchema
+//   this.resetPasswordToken = crypto
+//     .createHash("sha256")
+//     .update(resetToken)
+//     .digest("hex");
+
+//   this.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
+
+//   return resetToken;
+// };
 
 module.exports = mongoose.model("user", userSchema);
