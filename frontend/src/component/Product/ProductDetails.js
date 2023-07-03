@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProductDetails } from "../../actions/productAction";
 import Loader from "../layout/Loader/Loader";
 import ReactStars from "react-rating-stars-component";
+import ReviewCard from "./ReviewCard.js";
 
 const ProductDetails = () => {
   // const match = useMatch("/product/:id");
@@ -76,6 +77,17 @@ const ProductDetails = () => {
           <button className="submitReview">Submit Review</button>
         </div>
       </div>
+
+      <h3 className="reviewHeading">REVIEWS</h3>
+
+      {product.reviews && product.reviews[0] ? (
+        <div className="reviews">
+          {product.reviews &&
+            product.reviews.map((review) => <ReviewCard review={review} />)}
+        </div>
+      ) : (
+        <p className="noReviews">No Reviews Yet</p>
+      )}
     </Fragment>
   );
 };
