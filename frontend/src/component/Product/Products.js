@@ -27,6 +27,7 @@ const Products = ({ ref }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 25000]);
   const [category, setCategory] = useState("");
+  const [ratings, setRatings] = useState(0);
 
   const {
     products,
@@ -48,8 +49,8 @@ const Products = ({ ref }) => {
   };
 
   useEffect(() => {
-    dispatch(getProduct(keyword, currentPage, price, category));
-  }, [dispatch, keyword, currentPage, price, category]);
+    dispatch(getProduct(keyword, currentPage, price, category, ratings));
+  }, [dispatch, keyword, currentPage, price, category, ratings]);
 
   const count = filteredProductCount;
 
@@ -91,6 +92,21 @@ const Products = ({ ref }) => {
                 </li>
               ))}
             </ul>
+
+            <fieldset>
+              <Typography component="legend"> Ratings Above</Typography>
+
+              <Slider
+                value={ratings}
+                onChange={(e, newRating) => {
+                  setRatings(newRating);
+                }}
+                aria-labelledby="continuous-slider"
+                valueLabelDisplay="auto"
+                min={0}
+                max={5}
+              />
+            </fieldset>
           </div>
 
           {resultPerPage < count && (
