@@ -30,7 +30,6 @@ const options = {
   nav3justifyContent: "flex-start",
   nav4justifyContent: "flex-start",
   link1ColorHover: "#eb4034",
-  profileIconUrl: "/login",
   link1Margin: "1vmax",
   profileIconColor: "rgba(35, 35, 35, 0.8)",
   searchIconColor: "rgba(35, 35, 35, 0.8)",
@@ -48,7 +47,7 @@ const options = {
   profileIconSize: "2vmax",
   searchIconUrl: "/search",
   cartIconUrl: "/cart",
-  profileIconUrl: "/accout",
+  profileIconUrl: "/login",
 };
 const Header = () => {
   return <ReactNavbar {...options} />;
