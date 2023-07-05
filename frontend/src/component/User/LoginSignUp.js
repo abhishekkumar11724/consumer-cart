@@ -4,6 +4,7 @@ import Loader from "../layout/Loader/Loader";
 import { Link } from "react-router-dom";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
+import FaceIcon from "@material-ui/icons/Face";
 
 const LoginSignUp = () => {
   const loginTab = useRef(null);
@@ -12,9 +13,47 @@ const LoginSignUp = () => {
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [avatar, setAvatar] = useState();
+  const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
 
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const { name, email, password } = user;
   const loginSubmit = () => {
-    console.log("Form submitted");
+    console.log("Login Form submitted");
+  };
+
+  const registerSubmit = (e) => {
+    e.preventDefault();
+
+    const myForm = new FormData();
+
+    myForm.set("name", name);
+    myForm.set("email", email);
+    myForm.set("password", password);
+    myForm.set("avatar", avatar);
+    console.log("Sign Up Form Submitted");
+  };
+
+  const registerDataChange = (e) => {
+    if (e.target.name === "avatar") {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setAvatarPreview(reader.result);
+          setAvatar(reader.result);
+        }
+
+        reader.readAsDataURL(e.target.files[0]);
+      };
+    } else {
+      setUser({ ...user, [e.target.name]: e.target.value });
+    }
   };
 
   const switchTabs = (e, tab) => {
@@ -72,6 +111,57 @@ const LoginSignUp = () => {
             </div>
             <Link to="/password/forget">ForgetPassword ?</Link>
             <input type="submit" value="login" className="loginBtn" />
+          </form>
+          <form
+            className="signUpForm"
+            ref={registerTab}
+            encType="multipart/form-data"
+            onSubmit={registerSubmit}
+          >
+            <div className="signUpName">
+              <FaceIcon />
+              <input
+                type="text"
+                placeholder="Name"
+                required
+                name="name"
+                value={name}
+                onChange={registerDataChange}
+              />
+            </div>
+            <div className="signUpEmail">
+              <MailOutlineIcon />
+              <input
+                type="email"
+                placeholder="Email"
+                required
+                name="email"
+                value={email}
+                onChange={registerDataChange}
+              />
+            </div>
+            <div className="signUpPassword">
+              <LockOpenIcon />
+              <input
+                type="password"
+                placeholder="Password"
+                required
+                name="password"
+                value={password}
+                onChange={registerDataChange}
+              />
+            </div>
+
+            <div id="registerImage">
+              <img src={avatarPreview} alt="Avatar Preview" />
+              <input
+                type="file"
+                name="avatar"
+                accept="image/*"
+                onChange={registerDataChange}
+              />
+            </div>
+            <input type="submit" value="Register" className="signUpBtn" />
           </form>
         </div>
       </div>
