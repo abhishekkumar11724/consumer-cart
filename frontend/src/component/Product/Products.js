@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "./Products.css";
+import { useAlert } from "react-alert";
 import { useParams } from "react-router-dom";
 import { UseSelector, useDispatch, useSelector } from "react-redux";
 import { clearErrors, getProduct } from "../../actions/productAction";
@@ -8,6 +9,7 @@ import ProductCard from "../Home/ProductCard";
 import Pagination from "react-js-pagination";
 import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
+import Metadata from "../layout/MetaData";
 
 const categories = [
   "Laptop",
@@ -21,13 +23,14 @@ const categories = [
 
 const Products = ({ ref }) => {
   const dispatch = useDispatch();
-
+  const alert = useAlert();
   const params = useParams();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 25000]);
   const [category, setCategory] = useState("");
   const [ratings, setRatings] = useState(0);
+  const keyword = params.keyword;
 
   const {
     products,
@@ -38,8 +41,6 @@ const Products = ({ ref }) => {
     filteredProductCount,
   } = useSelector((state) => state.products);
 
-  const keyword = params.keyword;
-
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
   };
@@ -49,8 +50,13 @@ const Products = ({ ref }) => {
   };
 
   useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+
     dispatch(getProduct(keyword, currentPage, price, category, ratings));
-  }, [dispatch, keyword, currentPage, price, category, ratings]);
+  }, [dispatch, error, alert, keyword, currentPage, price, category, ratings]);
 
   const count = filteredProductCount;
 
@@ -60,6 +66,7 @@ const Products = ({ ref }) => {
         <Loader />
       ) : (
         <Fragment>
+          <Metadata title="PRODUCTS -- ECOMMERCE" />
           <h2 className="ProductsHeading  ">Products</h2>
           <div className="products">
             {products &&

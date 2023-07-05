@@ -7,7 +7,7 @@ import React from "react";
 import Footer from "./component/layout/Footer/Footer";
 import ProductDetails from "./component/Product/ProductDetails.js";
 import Products from "./component/Product/Products.js";
-import Search from "./component/Search.js";
+import Search from "./component/Product/Search.js";
 
 function App() {
   React.useEffect(() => {
