@@ -9,14 +9,18 @@ import ProductDetails from "./component/Product/ProductDetails.js";
 import Products from "./component/Product/Products.js";
 import Search from "./component/Product/Search.js";
 import LoginSignUp from "./component/User/LoginSignUp";
-import { loadUser } from "./actions/userAction";
 import store from "./store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UserOptions from "./component/layout/Header/UserOptions.js";
 import Profile from "./component/User/Profile";
+import ProtectedRoute from "./component/Route/ProtectedRoute";
+import { clearErrors, loadUser } from "./actions/userAction";
+import { useAlert } from "react-alert";
 
 function App() {
-  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const alert = useAlert();
+  const { isAuthenticated, user, error } = useSelector((state) => state.user);
 
   React.useEffect(() => {
     WebFont.load({
@@ -24,7 +28,8 @@ function App() {
         families: ["Roboto", "Droid Sans", "Chilanka"],
       },
     });
-    store.dispatch(loadUser());
+
+    dispatch(loadUser());
   }, []);
   return (
     <Router>
@@ -38,7 +43,19 @@ function App() {
         <Route path="/products/:keyword" Component={Products} />
         <Route exact path="/search" Component={Search} />
         <Route exact path="/login" Component={LoginSignUp} />
-        <Route exact path="/account" Component={Profile} />
+
+        <Route
+          path="/account"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+          <Route path="/account" element={<Profile />} />
+        </Route> */}
       </Routes>
       <Footer />
     </Router>
