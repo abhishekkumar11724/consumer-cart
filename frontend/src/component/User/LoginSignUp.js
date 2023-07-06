@@ -62,13 +62,29 @@ const LoginSignUp = () => {
           setAvatarPreview(reader.result);
           setAvatar(reader.result);
         }
-
-        reader.readAsDataURL(e.target.files[0]);
       };
+      reader.readAsDataURL(e.target.files[0]);
     } else {
       setUser({ ...user, [e.target.name]: e.target.value });
     }
   };
+
+  //   const registerDataChange = (e) => {
+  //     if (e.target.name === "avatar") {
+  //       const reader = new FileReader();
+
+  //       reader.onload = () => {
+  //         if (reader.readyState === 2) {
+  //           setAvatarPreview(reader.result);
+  //           setAvatar(reader.result);
+  //         }
+  //       };
+
+  //       reader.readAsDataURL(e.target.files[0]);
+  //     } else {
+  //       setUser({ ...user, [e.target.name]: e.target.value });
+  //     }
+  //   };
 
   useEffect(() => {
     if (error) {
