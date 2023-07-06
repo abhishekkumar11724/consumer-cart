@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../actions/userAction";
+import { Backdrop } from "@material-ui/core";
 
 const UserOptions = ({ user }) => {
   const navigate = useNavigate();
@@ -48,10 +49,13 @@ const UserOptions = ({ user }) => {
   }
   return (
     <Fragment>
+      <Backdrop open={open} style={{ zIndex: "10" }} />
       <SpeedDial
         ariaLabel="SpeedDial tooltip example"
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
+        style={{ zIndex: "11" }}
+        className="speedDial"
         open={open}
         direction="down"
         icon={
