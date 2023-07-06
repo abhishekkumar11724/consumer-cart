@@ -1,18 +1,19 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
 import "./LoginSignUp.css";
 import Loader from "../layout/Loader/Loader";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FaceIcon from "@material-ui/icons/Face";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login, register } from "../../actions/userAction";
 import { useAlert } from "react-alert";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const LoginSignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const alert = useAlert();
 
   const { error, loading, isAuthenticated } = useSelector(
@@ -69,33 +70,13 @@ const LoginSignUp = () => {
     }
   };
 
-  //   const registerDataChange = (e) => {
-  //     if (e.target.name === "avatar") {
-  //       const reader = new FileReader();
-
-  //       reader.onload = () => {
-  //         if (reader.readyState === 2) {
-  //           setAvatarPreview(reader.result);
-  //           setAvatar(reader.result);
-  //         }
-  //       };
-
-  //       reader.readAsDataURL(e.target.files[0]);
-  //     } else {
-  //       setUser({ ...user, [e.target.name]: e.target.value });
-  //     }
-  //   };
-
   useEffect(() => {
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-
     if (isAuthenticated) {
       navigate("/account");
-    } else {
-      navigate("/login");
     }
   }, [dispatch, error, alert, isAuthenticated, navigate]);
 
