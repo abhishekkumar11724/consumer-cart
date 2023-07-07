@@ -9,7 +9,10 @@ import ProductDetails from "./component/Product/ProductDetails";
 import Products from "./component/Product/Products";
 import Search from "./component/Product/Search";
 import LoginSignUp from "./component/User/LoginSignUp";
-
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import store from "./store";
+import axios from "axios";
 import { useSelector } from "react-redux";
 import UserOptions from "./component/layout/Header/UserOptions";
 import Profile from "./component/User/Profile";
@@ -24,10 +27,7 @@ import Shipping from "./component/Cart/Shipping";
 import OrderSuccess from "./component/Cart/OrderSuccess.js";
 import ConfirmOrder from "./component/Cart/ConfirmOrder";
 import Payment from "./component/Cart/Payment.js";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import store from "./store";
-import axios from "axios";
+import MyOrders from "./component/Order/MyOrders.js";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -138,6 +138,15 @@ function App() {
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <OrderSuccess />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <MyOrders />
             </ProtectedRoute>
           }
         />
