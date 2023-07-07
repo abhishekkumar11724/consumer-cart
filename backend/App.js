@@ -1,6 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
+const path = require("path");
 
 const app = express();
 
@@ -23,6 +24,12 @@ const order = require("./routes/orderRoutes");
 app.use("/api/v1", product);
 app.use("/api/v1", user);
 app.use("/api/v1", order);
+
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
+});
 
 // Middleware for Errors
 app.use(errorMiddleware);

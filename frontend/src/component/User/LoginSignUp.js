@@ -190,6 +190,7 @@ const LoginSignUp = () => {
                   />
                 </div>
                 <input type="submit" value="Register" className="signUpBtn" />
+                <label id="uploadFileLabel">{`(Image size must be less then 750kb)`}</label>
               </form>
             </div>
           </div>
