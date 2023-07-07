@@ -1,11 +1,16 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
+const dotenv = require("dotenv");
+
 const path = require("path");
 
 const app = express();
 
 const errorMiddleware = require("./middleware/error");
+
+//config
+dotenv.config({ path: "backend/config/config.env" });
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,10 +25,12 @@ app.use(fileUpload());
 const product = require("./routes/productRoute");
 const user = require("./routes/userRoute");
 const order = require("./routes/orderRoutes");
+const payment = require("./routes/paymentRoutes");
 
 app.use("/api/v1", product);
 app.use("/api/v1", user);
 app.use("/api/v1", order);
+app.use("/api/v1", payment);
 
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 
