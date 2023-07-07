@@ -121,6 +121,11 @@
   margin: 1vmax 4vmax;
   cursor: pointer;
   border-radius: 30px;
+  transition: all 0.5s;
+}
+
+.checkOutBtn > button:hover {
+  background-color: rgb(195, 76, 55);
 }
 
 @media screen and (max-width: 600px) {

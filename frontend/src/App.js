@@ -20,6 +20,8 @@ import UpdatePassword from "./component/User/UpdatePassword";
 import ForgotPassword from "./component/User/ForgotPassword";
 import ResetPassword from "./component/User/ResetPassword";
 import Cart from "./component/Cart/Cart";
+import Shipping from "./component/Cart/Shipping";
+import ConfirmOrder from "./component/Cart/ConfirmOrder";
 import store from "./store";
 
 function App() {
@@ -54,6 +56,10 @@ function App() {
 
         <Route exact path="/cart" Component={Cart} />
 
+        <Route path="/password/forgot/" Component={ForgotPassword} />
+
+        <Route exact path="/password/reset/:token" Component={ResetPassword} />
+
         <Route
           path="/account"
           element={
@@ -81,8 +87,23 @@ function App() {
           }
         />
 
-        <Route path="/password/forgot/" Component={ForgotPassword} />
-        <Route exact path="/password/reset/:token" Component={ResetPassword} />
+        <Route
+          path="/shipping"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Shipping />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/order/confirm"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <ConfirmOrder />
+            </ProtectedRoute>
+          }
+        />
 
         {/* <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
           <Route path="/account" element={<Profile />} />
