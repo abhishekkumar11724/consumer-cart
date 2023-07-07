@@ -3,7 +3,7 @@ import Header from "./component/layout/Header/Header.js";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import WebFont from "webfontloader";
 import Home from "./component/Home/Home";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "./component/layout/Footer/Footer";
 import ProductDetails from "./component/Product/ProductDetails";
 import Products from "./component/Product/Products";
@@ -22,12 +22,23 @@ import ResetPassword from "./component/User/ResetPassword";
 import Cart from "./component/Cart/Cart";
 import Shipping from "./component/Cart/Shipping";
 import ConfirmOrder from "./component/Cart/ConfirmOrder";
+import Payment from "./component/Cart/Payment.js";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import store from "./store";
+import axios from "axios";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
-  React.useEffect(() => {
+  const [stripeApiKey, setStripeApiKey] = useState("");
+
+  async function getStripeApiKey() {
+    const { data } = await axios.get("/api/v1/stripeapikey");
+
+    setStripeApiKey(data.stripeApiKey);
+  }
+  useEffect(() => {
     WebFont.load({
       google: {
         families: ["Roboto", "Droid Sans", "Chilanka"],
@@ -35,7 +46,10 @@ function App() {
     });
 
     store.dispatch(loadUser());
+
+    getStripeApiKey();
   }, []);
+
   return (
     <Router>
       <Header />
@@ -104,6 +118,19 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        {stripeApiKey && (
+          <Route
+            path="/process/payment"
+            element={
+              <Elements stripe={loadStripe(stripeApiKey)}>
+                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                  <Payment />
+                </ProtectedRoute>
+              </Elements>
+            }
+          />
+        )}
 
         {/* <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
           <Route path="/account" element={<Profile />} />
