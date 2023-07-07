@@ -42,7 +42,7 @@ const Shipping = () => {
     <Fragment>
       <MetaData title="Shipping Details" />
 
-      <CheckoutSteps activeStep={2} />
+      <CheckoutSteps activeStep={0} />
       <div className="shippingContainer">
         <div className="shippingBox">
           <h2 className="shippingHeading">Shipping Details</h2>
@@ -58,7 +58,7 @@ const Shipping = () => {
                 type="text"
                 placeholder="Address"
                 required
-                value={address}
+                defaultValue={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
             </div>
@@ -69,7 +69,7 @@ const Shipping = () => {
                 type="text"
                 placeholder="City"
                 required
-                value={city}
+                defaultValue={city}
                 onChange={(e) => setCity(e.target.value)}
               />
             </div>
@@ -80,7 +80,7 @@ const Shipping = () => {
                 type="number"
                 placeholder="Pin Code"
                 required
-                value={pinCode}
+                defaultValue={pinCode}
                 onChange={(e) => setPinCode(e.target.value)}
               />
             </div>
@@ -91,7 +91,7 @@ const Shipping = () => {
                 type="number"
                 placeholder="Phone Number"
                 required
-                value={phoneNo}
+                defaultValue={phoneNo}
                 onChange={(e) => setPhoneNo(e.target.value)}
                 size="10"
               />
