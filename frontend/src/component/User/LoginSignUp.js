@@ -137,7 +137,7 @@ const LoginSignUp = () => {
                     onChange={(e) => setLoginPassword(e.target.value)}
                   />
                 </div>
-                <Link to="/password/forget">ForgetPassword ?</Link>
+                <Link to="/password/forgot">ForgetPassword ?</Link>
                 <input type="submit" value="login" className="loginBtn" />
               </form>
               <form
