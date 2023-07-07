@@ -3,37 +3,32 @@ import {
   CREATE_ORDER_SUCCESS,
   CREATE_ORDER_REQUEST,
   CLEAR_ERRORS,
-  ORDER_DETAILS_SUCCESS,
-  ORDER_DETAILS_FAIL,
+  ORDER_DETAILS_REQUEST,
 } from "../constants/orderConstants";
+import axios from "axios";
 
-export const newOrderReducer = (state = {}, action) => {
-  switch (action.type) {
-    case CREATE_ORDER_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
+export const createOrder = (order) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ORDER_DETAILS_REQUEST });
 
-    case ORDER_DETAILS_SUCCESS:
-      return {
-        loading: false,
-        order: action.payload,
-      };
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
 
-    case ORDER_DETAILS_FAIL:
-      return {
-        loading: false,
-        error: action.payload,
-      };
+    const data = await axios.post("/api/v1/order/new", order, config);
 
-    case CLEAR_ERRORS:
-      return {
-        ...state,
-        error: null,
-      };
-
-    default:
-      return state;
+    dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: CREATE_ORDER_FAIL,
+      payload: error.response.data.message,
+    });
   }
+};
+
+// Clearing Errors
+export const clearErrors = () => async (dispatch) => {
+  dispatch({ type: CLEAR_ERRORS });
 };
