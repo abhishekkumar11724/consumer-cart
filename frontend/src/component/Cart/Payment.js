@@ -41,9 +41,9 @@ const Payment = () => {
   const order = {
     shippingInfo,
     orderItems: cartItems,
-    itemPrice: orderInfo.subtotal,
+    itemsPrice: orderInfo.subtotal,
     taxPrice: orderInfo.tax,
-    shippingPrice: orderInfo.shippingPrice,
+    shippingPrice: orderInfo.shippingCharges,
     totalPrice: orderInfo.totalPrice,
   };
 
@@ -71,12 +71,14 @@ const Payment = () => {
       const result = await stripe.confirmCardPayment(client_secret, {
         payment_method: {
           card: elements.getElement(CardNumberElement),
+
           billing_details: {
             name: user.name,
             email: user.email,
             address: {
               line1: shippingInfo.address,
               city: shippingInfo.city,
+              state: shippingInfo.state,
               postal_code: shippingInfo.pinCode,
               country: shippingInfo.country,
             },
@@ -94,6 +96,7 @@ const Payment = () => {
             id: result.paymentIntent.id,
             status: result.paymentIntent.status,
           };
+          dispatch(createOrder(order));
 
           navigate("/success");
         } else {

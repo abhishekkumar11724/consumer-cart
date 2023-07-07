@@ -3,13 +3,12 @@ import {
   CREATE_ORDER_SUCCESS,
   CREATE_ORDER_REQUEST,
   CLEAR_ERRORS,
-  ORDER_DETAILS_REQUEST,
 } from "../constants/orderConstants";
 import axios from "axios";
 
-export const createOrder = (order) => async (dispatch, getState) => {
+export const createOrder = (order) => async (dispatch) => {
   try {
-    dispatch({ type: ORDER_DETAILS_REQUEST });
+    dispatch({ type: CREATE_ORDER_REQUEST });
 
     const config = {
       headers: {
@@ -17,7 +16,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
       },
     };
 
-    const data = await axios.post("/api/v1/order/new", order, config);
+    const { data } = await axios.post("/api/v1/order/new", order, config);
 
     dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
   } catch (error) {

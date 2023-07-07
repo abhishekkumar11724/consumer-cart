@@ -18,6 +18,7 @@ const Shipping = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const alert = useAlert();
+
   const { shippingInfo } = useSelector((state) => state.cart);
 
   const [address, setAddress] = useState(shippingInfo.address);
@@ -30,11 +31,13 @@ const Shipping = () => {
   const shippingSubmit = (e) => {
     e.preventDefault();
     if (phoneNo.length < 10 || phoneNo.length > 10) {
-      alert.error("Phone Number should be 10 digit long");
+      alert.error("Phone Number should be 10 digits long");
       return;
     }
 
-    dispatch(saveShippingInfo({ address, city, country, pinCode, phoneNo }));
+    dispatch(
+      saveShippingInfo({ address, city, state, country, pinCode, phoneNo })
+    );
     navigate("/order/confirm");
   };
 
@@ -122,7 +125,7 @@ const Shipping = () => {
                   value={state}
                   onChange={(e) => setState(e.target.value)}
                 >
-                  <option value=""> State</option>
+                  <option value="">State</option>
                   {State &&
                     State.getStatesOfCountry(country).map((item) => (
                       <option key={item.isoCode} value={item.isoCode}>

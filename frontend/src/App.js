@@ -21,6 +21,7 @@ import ForgotPassword from "./component/User/ForgotPassword";
 import ResetPassword from "./component/User/ResetPassword";
 import Cart from "./component/Cart/Cart";
 import Shipping from "./component/Cart/Shipping";
+import OrderSuccess from "./component/Cart/OrderSuccess.js";
 import ConfirmOrder from "./component/Cart/ConfirmOrder";
 import Payment from "./component/Cart/Payment.js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -131,6 +132,15 @@ function App() {
             }
           />
         )}
+
+        <Route
+          path="/success"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <OrderSuccess />
+            </ProtectedRoute>
+          }
+        />
 
         {/* <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
           <Route path="/account" element={<Profile />} />
