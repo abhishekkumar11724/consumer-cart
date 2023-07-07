@@ -16,6 +16,7 @@ import Profile from "./component/User/Profile";
 import ProtectedRoute from "./component/Route/ProtectedRoute";
 import { loadUser } from "./actions/userAction";
 import UpdateProfile from "./component/User/UpdateProfile.js";
+import UpdatePassword from "./component/User/UpdatePassword.js";
 
 function App() {
   const dispatch = useDispatch();
@@ -58,6 +59,15 @@ function App() {
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <UpdateProfile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/password/update"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <UpdatePassword />
             </ProtectedRoute>
           }
         />
