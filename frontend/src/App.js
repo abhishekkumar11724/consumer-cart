@@ -18,7 +18,8 @@ import { loadUser } from "./actions/userAction";
 import UpdateProfile from "./component/User/UpdateProfile";
 import UpdatePassword from "./component/User/UpdatePassword";
 import ForgotPassword from "./component/User/ForgotPassword";
-import ResetPassword from "./component/User/ResetPassword.js";
+import ResetPassword from "./component/User/ResetPassword";
+import Cart from "./component/Cart/Cart";
 import store from "./store";
 
 function App() {
@@ -42,10 +43,16 @@ function App() {
         <Route exact path="/" Component={Home} />
 
         <Route exact path="/product/:id" Component={ProductDetails} />
+
         <Route exact path="/products" Component={Products} />
+
         <Route path="/products/:keyword" Component={Products} />
+
         <Route exact path="/search" Component={Search} />
+
         <Route exact path="/login" Component={LoginSignUp} />
+
+        <Route exact path="/cart" Component={Cart} />
 
         <Route
           path="/account"
