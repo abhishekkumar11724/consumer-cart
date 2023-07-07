@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useParams, useMatch } from "react-router-dom";
 import Carousel from "react-material-ui-carousel";
 import "./ProductDetails.css";
@@ -9,6 +9,7 @@ import ReactStars from "react-rating-stars-component";
 import ReviewCard from "./ReviewCard.js";
 import { useAlert } from "react-alert";
 import Metadata from "../layout/MetaData";
+import { addItemsToCart } from "../../actions/cartActions";
 
 const ProductDetails = () => {
   // const match = useMatch("/product/:id");
@@ -19,6 +20,26 @@ const ProductDetails = () => {
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );
+
+  const [quantity, setQuantity] = useState(1);
+
+  const increaseQuantity = () => {
+    if (product.stock <= quantity) return;
+
+    const qty = quantity + 1;
+    setQuantity(qty);
+  };
+  const decreaseQuantity = () => {
+    if (1 >= quantity) return;
+    const qty = quantity - 1;
+    setQuantity(qty);
+  };
+
+  const addItemsToCartHandler = () => {
+    dispatch(addItemsToCart(id, quantity));
+    alert.success("Item added to Cart");
+  };
+
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -71,11 +92,11 @@ const ProductDetails = () => {
                 <h1>{`₹${product.price}`}</h1>
                 <div className="detailsBlock-3-1">
                   <div className="detailsBlock-3-1-1">
-                    <button>-</button>
-                    <input value="1" type="number" readOnly />
-                    <button>+</button>
+                    <button onClick={decreaseQuantity}>-</button>
+                    <input readOnly type="number" value={quantity} />
+                    <button onClick={increaseQuantity}>+</button>
                   </div>
-                  <button>Add to Cart</button>
+                  <button onClick={addItemsToCartHandler}>Add to Cart</button>
                 </div>
                 <p>
                   Status:
@@ -96,7 +117,9 @@ const ProductDetails = () => {
           {product.reviews && product.reviews[0] ? (
             <div className="reviews">
               {product.reviews &&
-                product.reviews.map((review) => <ReviewCard review={review} />)}
+                product.reviews.map((review) => (
+                  <ReviewCard key={review._id} review={review} />
+                ))}
             </div>
           ) : (
             <p className="noReviews">No Reviews Yet</p>
