@@ -28,6 +28,7 @@ import OrderSuccess from "./component/Cart/OrderSuccess.js";
 import ConfirmOrder from "./component/Cart/ConfirmOrder";
 import Payment from "./component/Cart/Payment.js";
 import MyOrders from "./component/Order/MyOrders.js";
+import OrderDetails from "./component/Order/OrderDetails.js";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -147,6 +148,15 @@ function App() {
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <MyOrders />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/order/:id"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <OrderDetails />
             </ProtectedRoute>
           }
         />
