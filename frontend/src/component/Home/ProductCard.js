@@ -14,7 +14,9 @@ const ProductCard = ({ product }) => {
       <p>{product.name}</p>
       <div>
         <Rating {...options} />
-        <span>({product.numOfReviews} Reviews)</span>
+        <span className="productCardSpan">
+          ({product.numOfReviews} Reviews)
+        </span>
       </div>
       <span>`Rs. ${product.price}`</span>
     </Link>
