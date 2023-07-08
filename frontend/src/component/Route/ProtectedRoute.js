@@ -9,7 +9,7 @@ const ProtectedRoute = ({
   redirect = "/login",
   redirectAdmin = "/account",
 }) => {
-  if (!isAuthenticated) {
+  if (isAuthenticated === false) {
     return <Navigate to={redirect} />;
   }
 
