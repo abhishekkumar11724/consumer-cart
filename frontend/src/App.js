@@ -29,6 +29,7 @@ import ConfirmOrder from "./component/Cart/ConfirmOrder";
 import Payment from "./component/Cart/Payment.js";
 import MyOrders from "./component/Order/MyOrders.js";
 import OrderDetails from "./component/Order/OrderDetails.js";
+import Dashboard from "./component/admin/Dashboard.js";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -125,11 +126,13 @@ function App() {
           <Route
             path="/process/payment"
             element={
-              <Elements stripe={loadStripe(stripeApiKey)}>
+              stripeApiKey && (
                 <ProtectedRoute isAuthenticated={isAuthenticated}>
-                  <Payment />
+                  <Elements stripe={loadStripe(stripeApiKey)}>
+                    <Payment />
+                  </Elements>
                 </ProtectedRoute>
-              </Elements>
+              )
             }
           />
         )}
@@ -157,6 +160,19 @@ function App() {
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <OrderDetails />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute
+              // adminRoute={user?.role}
+              // isAdmin={true}
+              isAuthenticated={isAuthenticated}
+            >
+              <Dashboard />
             </ProtectedRoute>
           }
         />
