@@ -1,9 +1,9 @@
-.ProductsHeading {
+.productsHeading {
   margin: 2vmax auto;
-  width: 15vmax;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  width: 15vw;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.171);
   padding: 2vmax;
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(0, 0, 0, 0.678);
   font: 500 1.5vmax "Roboto";
   text-align: center;
 }
@@ -29,14 +29,13 @@
 }
 
 .page-item {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   list-style: none;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.178);
   padding: 1vmax 1.5vmax;
   transition: all 0.3s;
   cursor: pointer;
 }
-
 .page-item:first-child {
   border-radius: 5px 0 0 5px;
 }
@@ -44,10 +43,9 @@
 .page-item:last-child {
   border-radius: 0 5px 5px 0;
 }
-
 .page-link {
   text-decoration: none;
-  font: 300 0.7vmax "roboto";
+  font: 300 0.7vmax "Roboto";
   color: rgb(80, 80, 80);
   transition: all 0.3s;
 }
@@ -59,6 +57,7 @@
 .page-item:hover .page-link {
   color: rgb(0, 0, 0);
 }
+
 .pageItemActive {
   background-color: tomato;
 }
@@ -80,19 +79,18 @@
 
 .category-link {
   list-style: none;
-  color: rgba(0, 0, 0, 0.6);
-  font: 400 0.8vmax "roboto";
+  color: rgba(0, 0, 0, 0.61);
+  font: 400 0.8vmax "Roboto";
   margin: 0.4vmax;
   cursor: pointer;
   transition: all 0.5s;
 }
-
 .category-link:hover {
   color: tomato;
 }
 
 .filterBox > fieldset {
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.329);
 }
 
 @media screen and (max-width: 600px) {
@@ -101,10 +99,10 @@
     position: static;
     margin: auto;
   }
-  .page-link {
-    font: 300 1.7vmax "roboto";
-  }
 
+  .page-link {
+    font: 300 1.7vmax "Roboto";
+  }
   .category-link {
     font: 400 1.8vmax "Roboto";
   }

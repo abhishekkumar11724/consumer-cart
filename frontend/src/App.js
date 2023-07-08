@@ -13,7 +13,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import store from "./store";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UserOptions from "./component/layout/Header/UserOptions";
 import Profile from "./component/User/Profile";
 import ProtectedRoute from "./component/Route/ProtectedRoute";
@@ -34,6 +34,8 @@ import ProductList from "./component/Admin/ProductList.js";
 import NewProduct from "./component/Admin/NewProduct.js";
 
 function App() {
+  const dispatch = useDispatch();
+
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -43,6 +45,7 @@ function App() {
 
     setStripeApiKey(data.stripeApiKey);
   }
+
   useEffect(() => {
     WebFont.load({
       google: {
@@ -50,10 +53,12 @@ function App() {
       },
     });
 
-    store.dispatch(loadUser());
+    dispatch(loadUser());
 
     getStripeApiKey();
-  }, []);
+  }, [dispatch]);
+
+  window.addEventListener("contextmenu", (e) => e.preventDefault());
 
   return (
     <Router>
@@ -124,20 +129,18 @@ function App() {
           }
         />
 
-        {stripeApiKey && (
-          <Route
-            path="/process/payment"
-            element={
-              stripeApiKey && (
-                <ProtectedRoute isAuthenticated={isAuthenticated}>
-                  <Elements stripe={loadStripe(stripeApiKey)}>
-                    <Payment />
-                  </Elements>
-                </ProtectedRoute>
-              )
-            }
-          />
-        )}
+        <Route
+          path="/process/payment"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              {stripeApiKey && (
+                <Elements stripe={loadStripe(stripeApiKey)}>
+                  <Payment />
+                </Elements>
+              )}
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path="/success"
@@ -204,10 +207,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
-        {/* <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
-          <Route path="/account" element={<Profile />} />
-        </Route> */}
       </Routes>
       <Footer />
     </Router>
