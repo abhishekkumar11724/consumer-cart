@@ -35,7 +35,7 @@ router.route("/review").put(isAuthenticatedUser, createProductReview);
 
 router
   .route("/reviews")
-  .get(isAuthenticatedUser, getProductReviews)
+  .get(getProductReviews)
   .delete(isAuthenticatedUser, deleteReview);
 
 module.exports = router;
