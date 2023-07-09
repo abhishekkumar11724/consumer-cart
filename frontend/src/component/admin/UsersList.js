@@ -57,7 +57,7 @@ const UsersList = () => {
       field: "email",
       headerName: "Email",
       minWidth: 200,
-      flex: 1,
+      flex: 0.6,
     },
     {
       field: "name",
