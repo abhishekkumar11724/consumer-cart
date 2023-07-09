@@ -33,6 +33,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Login User
+
 exports.loginUser = catchAsyncErrors(async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -283,7 +284,9 @@ exports.DeleteUser = catchAsyncErrors(async (req, res, next) => {
     );
   }
 
-  // We will Remove Cloudinary later
+  const imageId = user.avatar.public_id;
+
+  await cloudinary.v2.uploader.destroy(imageId);
 
   await user.deleteOne();
 

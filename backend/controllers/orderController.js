@@ -52,14 +52,12 @@ exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
 
 // Get logged in user Order
 
-exports.myOrder = catchAsyncErrors(async (req, res, next) => {
-  const order = await Order.find({
-    user: req.user._id,
-  });
+exports.myOrders = catchAsyncErrors(async (req, res, next) => {
+  const orders = await Order.find({ user: req.user._id });
 
   res.status(200).json({
     success: true,
-    order,
+    orders,
   });
 });
 
@@ -93,10 +91,11 @@ exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("you have already delivered this order", 400));
   }
 
-  order.orderItems.forEach(async (odr) => {
-    await updateStock(odr.product, odr.quantity);
-  });
-
+  if (req.body.status === "Shipped") {
+    order.orderItems.forEach(async (odr) => {
+      await updateStock(odr.product, odr.quantity);
+    });
+  }
   order.orderStatus = req.body.status;
   if (req.body.status === "Delivered") {
     order.deliveredAt = Date.now();

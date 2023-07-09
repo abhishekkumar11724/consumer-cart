@@ -13,8 +13,17 @@ const errorMiddleware = require("./middleware/error");
 dotenv.config({ path: "backend/config/config.env" });
 
 const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+
+// bodyParser = {
+//   json: { limit: "50mb", extended: true },
+//   urlencoded: { limit: "50mb", extended: true },
+// };
+
+//   app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json({ limit: "50mb" }));
+
+app.use(bodyParser.json({ limit: "10mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 app.use(express.json());
 app.use(cookieParser());
