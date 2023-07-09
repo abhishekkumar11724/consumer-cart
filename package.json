@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "\"# consumer-cart\" \r \"# consumer-cart\"",
   "main": "backend/server.js",
+  
   "scripts": {
     "dev": "nodemon backend/server/server.js",
     "start": "node backend/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd frontend && npm run build"
   },
   "author": "",
   "license": "ISC",
