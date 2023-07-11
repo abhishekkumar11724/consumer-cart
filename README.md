@@ -100,3 +100,48 @@ npm install
    ```
 
    ```
+
+4. Install dependencies for the front-end:
+
+```bash
+cd ../frontend
+npm install
+```
+
+5. Start the development servers:
+
+- Backend:
+
+  ```bash
+  cd consumer-cart
+  npm run dev
+  ```
+
+- Frontend:
+
+  ```bash
+  cd ../frontend
+  npm start
+  ```
+
+6. Open your browser and visit `http://localhost:3000` to access Consumer Cart.
+
+## Contributing
+
+We welcome contributions to enhance Consumer Cart! If you'd like to contribute, please follow these steps:
+
+1. Fork the repository on GitHub.
+2. Create a new branch with a descriptive name: `git checkout -b my-new-feature`.
+3. Make your changes and commit them: `git commit -am 'Add some feature'`.
+4. Push the changes to your fork: `git push origin my-new-feature`.
+5. Submit a pull request to the main repository.
+
+Please ensure your code adheres to the existing code style and includes appropriate tests.
+
+## License
+
+Consumer Cart is open-source software licensed under the [MIT license](LICENSE.md).
+
+## Contact
+
+If you have any questions, suggestions, or need assistance, please feel free to contact us at [email@example.com](mailto:abhishek.k.11724@example.com).
