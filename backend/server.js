@@ -68,8 +68,8 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 
-//config
-dotenv.config({ path: "backend/config/config.env" });
+// //config
+// dotenv.config({ path: "backend/config/config.env" });
 
 // connecting to database
 connectDatabase();
